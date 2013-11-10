@@ -1,0 +1,65 @@
+\title{
+\vspace{-3ex}
+Does God play Tetris? - Team reference document
+\vspace{-6ex}}
+\date{}
+\documentclass[10pt,a4paper]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{fullpage}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{fancyhdr}
+%\usepackage{fullpage} %should do something but doesn't?
+\setlength{\headheight}{13.6pt}
+\setlength{\textheight}{692pt}
+\pagestyle{myheadings}
+\markright{University of Warwick (Does God play Tetris?)\hfill}
+\usepackage{listings}
+\lstset{
+language=Java,                % choose the language of the code
+basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+showspaces=false,               % show spaces adding particular underscores
+showstringspaces=false,         % underline spaces within strings
+showtabs=false,                 % show tabs within strings adding particular underscores
+frame=single,           % adds a frame around the code
+tabsize=2,          % sets default tabsize to 2 spaces
+captionpos=b,           % sets the caption-position to bottom
+breaklines=true,        % sets automatic line breaking
+breakatwhitespace=false,    % sets if automatic breaks should only happen at whitespace
+}
+
+
+\begin{document}
+\maketitle
+\thispagestyle{myheadings}
+\section*{Program submission checklist:}
+\begin{enumerate}
+\item Works on sample inputs given.
+\item Works on other sensible inputs.
+\item Works on pathalogical inputs/corner cases.
+\item Works in time on the largest possible inputs.
+\item Compiles! (with warnings on! -Xlint)
+\item No debug outputs!
+\end{enumerate}
+
+\section*{Code}
+\subsection*{Big sample}
+\lstinputlisting{samplecode.java}
+
+\subsection*{Graph algorithms}
+Max-Flow
+
+Shortest path
+
+Min spanning tree
+
+\subsection*{String algorithms}
+Matching
+
+\subsection{Geometric algorithms}
+Convex hull (can be used for furthest points)
+
+closest 2d pair points
+
+\end{document}
