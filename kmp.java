@@ -1,11 +1,4 @@
 public class kmp {
-	public static void main(String[] args)
-	{
-		char[] x = "aaa".toCharArray();
-		char[] y = "aaaaaaaaaa".toCharArray();
-
-		KMP(x,x.length-1,y,y.length-1);
-	}
 	static int[] preKmp(char[] x, int m, int[] kmpNext) {
 		int i, j;
 
@@ -44,5 +37,4 @@ public class kmp {
 			}
 		}
 	}
-
 }
