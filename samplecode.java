@@ -1,7 +1,6 @@
 import java.io.*;
 import java.util.*;
 import java.math.*;
-
 public class samplecode
 {
 	public static void debug(String s) {
@@ -19,12 +18,12 @@ public class samplecode
 
 		// A comparator can be defined by
 		class MyClassCmp implements Comparator<MyClass> {
-			// Should return a negative integer, zero, or a positive integer as the first argument is less than, equal to, or greater than the second respectively.
+			// Should return a negative integer, zero, or a positive integer as the first argument is less than, equal to, or greater than the second respectively
 			public int compare(MyClass a, MyClass b) {
 				return a.a - b.a;
 			}
 
-			// As far as I can tell this may not be neccessary, but probably best to do anyway.
+			// As far as I can tell this may not be neccessary, but probably best to do anyway
 			public boolean equals(MyClass a, MyClass b) {
 				return a.a == b.a;
 			}
@@ -49,7 +48,6 @@ public class samplecode
 		debug(numb.toString());
 
 		// In places where code should never be reached we can debug (and submit) with assert(false); there, this way we will get an exception rather than dodge behaviour.
-
 		debug(arr[0]);
 	}
 
