@@ -64,6 +64,8 @@ breakatwhitespace=false,    % sets if automatic breaks should only happen at whi
 \newcommand{\codelisting}[1]{
   \lstinputlisting[firstline=1]{#1}}
 
+\DeclareMathOperator{\lcm}{lcm}
+
 
 \begin{document}
 \maketitle
@@ -72,7 +74,7 @@ breakatwhitespace=false,    % sets if automatic breaks should only happen at whi
 \begin{enumerate}
 \item Works on sample inputs given.
 \item Works on other sensible inputs.
-\item Works on pathalogical inputs/corner cases.
+\item Works on pathological inputs/corner cases.
 \item Works in time on the largest possible inputs.
 \item Compiles! (with warnings on! -Xlint)
 \item No debug outputs!
@@ -81,14 +83,31 @@ breakatwhitespace=false,    % sets if automatic breaks should only happen at whi
 \subsection*{Big sample}
 \lstinputlisting{samplecode.java}
 
-\subsection*{Graph algorithms}
+\subsection*{Graphs}
 Max-Flow
 \codelisting{fordfulkerson.java}
 
-
 Shortest path
+\codelisting{dijkstra.java}
 
 Min spanning tree
+\codelisting{kruskal.java}
+
+\subsection*{Number theory}
+GCD
+\codelisting{gcd.java}
+\[\lcm(a,b) = ab/\gcd(a,b)\]
+
+\subsection*{Dynamic programming}
+Discrete knapsack problem
+\codelisting{knapsack.java}
+
+\subsection*{Combinatorics}
+Derangements, permutations, other bits
+
+\subsection*{Logic algorithms}
+2-SAT (requires strongly connected components??)
+\codelisting{2sat.java}
 
 \subsection*{String algorithms}
 Matching
@@ -102,5 +121,6 @@ Convex hull (can be used for furthest points)
 
 Closest pair of points
 \codelisting{closestpoints.java}
+
 
 \end{document}

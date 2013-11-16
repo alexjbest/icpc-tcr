@@ -47,5 +47,11 @@ public class tester
 		{
 			System.out.printf("%s,%s\n", p.x,p.y);
 		}
+
+
+		// Testing gcd
+		System.out.println("Testing GCD");
+		System.out.println(gcd.gcd(125, 35));
+		System.out.println(gcd.arrGCD(new int[]{2,56,0}));
 	}
 }

@@ -13,8 +13,7 @@ public class convexhull
 		if (d1-d2 > eps || d2-d1 > eps) return d1 < d2 ? -1 : 1;
 		return 0;
 	}
-	public static List<Point> hull(List<Point> points)
-	{
+	public static List<Point> hull(List<Point> points) {
 		Collections.sort(points);
 		final Point p0 = points.get(0);
 		points.remove(p0);
