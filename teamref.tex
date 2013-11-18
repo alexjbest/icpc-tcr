@@ -62,7 +62,7 @@ breakatwhitespace=false,    % sets if automatic breaks should only happen at whi
 %}
 
 \newcommand{\codelisting}[1]{
-  \lstinputlisting[firstline=1]{#1}}
+  \lstinputlisting[emptylines=0]{#1}}
 
 \DeclareMathOperator{\lcm}{lcm}
 
@@ -76,6 +76,7 @@ breakatwhitespace=false,    % sets if automatic breaks should only happen at whi
 \item Works on other sensible inputs.
 \item Works on pathological inputs/corner cases.
 \item Works in time on the largest possible inputs.
+\item Works within memory limit (if given) use -Xmx128m for a limit of 128mb for example.
 \item Compiles! (with warnings on! -Xlint)
 \item No debug outputs!
 \end{enumerate}
@@ -93,10 +94,16 @@ Shortest path
 Min spanning tree
 \codelisting{kruskal.java}
 
+Edmonds bloom algorithm for perfect matching (min-weight?)
+\codelisting{blossom.java}
+
 \subsection*{Number theory}
 GCD
 \codelisting{gcd.java}
 \[\lcm(a,b) = ab/\gcd(a,b)\]
+
+Sieve of Eratosthenes
+\codelisting{seive.java}
 
 \subsection*{Dynamic programming}
 Discrete knapsack problem
@@ -113,10 +120,14 @@ Derangements, permutations, other bits
 Matching
 \codelisting{kmp.java}
 
+
+Suffix arrays!
+\codelisting{suffix.java}
+
 \subsection*{Geometric algorithms}
 Simple data structures
 \codelisting{Point.java}
-Convex hull (can be used for furthest points)
+Convex hull, can be used for: furthest points, polygon containment ($P$ inside $Q$ iff $\operatorname{hull}(Q)  = \operatorname{hull}(P\cup Q)$),
 \codelisting{convexhull.java}
 
 Closest pair of points

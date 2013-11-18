@@ -53,5 +53,18 @@ public class tester
 		System.out.println("Testing GCD");
 		System.out.println(gcd.gcd(125, 35));
 		System.out.println(gcd.arrGCD(new int[]{2,56,0}));
+
+
+		// Testing seive
+		System.out.println("Testing seive");
+		boolean[] iscomps = seive.iscompslessthan(1000);
+		int count = 0;
+		for (int i = 2; i < 1000; i++)
+		{
+			if (iscomps[i]) continue;
+			count++;
+			System.out.print(i+", ");
+		}
+		System.out.println(count);
 	}
 }
