@@ -85,17 +85,33 @@ breakatwhitespace=false,    % sets if automatic breaks should only happen at whi
 \lstinputlisting{samplecode.java}
 
 \subsection*{Graphs}
+One way of representing
+\codelisting{graphsample.java}
+
 Max-Flow
 \codelisting{fordfulkerson.java}
 
 Shortest path
-\codelisting{dijkstra.java}
+\codelisting{shortpath.java}
 
 Min spanning tree
 \codelisting{kruskal.java}
 
-Edmonds bloom algorithm for perfect matching (min-weight?)
+Edmonds blossom algorithm for perfect matching (min-weight?)
 \codelisting{blossom.java}
+
+DFS/BFS
+\codelisting{search.java}
+
+Colouring
+
+Connectivity
+
+Minor testing
+
+Eulerian path
+
+Ham path
 
 \subsection*{Number theory}
 GCD
@@ -112,11 +128,11 @@ Discrete knapsack problem
 \subsection*{Combinatorics}
 Derangements, permutations, other bits
 
-\subsection*{Logic algorithms}
+\subsection*{Logic}
 2-SAT (requires strongly connected components??)
 \codelisting{2sat.java}
 
-\subsection*{String algorithms}
+\subsection*{Strings}
 Matching
 \codelisting{kmp.java}
 
@@ -124,9 +140,13 @@ Matching
 Suffix arrays!
 \codelisting{suffix.java}
 
-\subsection*{Geometric algorithms}
+\subsection*{Geometry}
+Centroid of set of point $C = (x_1 + x_2 + \cdots + x_k) / k$.
+Centroid of figure, triangulate into right triangles $X_1,\ldots,X_n$ and compute $C_x = (\sum {C_i}_x A_{i})/\sum A_i$, $C_y = (\sum {C_i}_y A_{i})/\sum A_i$ where the centroid of a right triangle perpendicular to the axis is $b/3,h/3$.
+
 Simple data structures
 \codelisting{Point.java}
+
 Convex hull, can be used for: furthest points, polygon containment ($P$ inside $Q$ iff $\operatorname{hull}(Q)  = \operatorname{hull}(P\cup Q)$),
 \codelisting{convexhull.java}
 

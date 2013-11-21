@@ -6,9 +6,9 @@ public class tester
 		// Testing Knuth-Morris-Pratt
 		System.out.println("Testing KMP");
 		char[] x = "aaa".toCharArray();
-		char[] y = "aaaaaaaaaa".toCharArray();
-
-		kmp.KMP(x,x.length-1,y,y.length-1);
+		char[] y = "DCVasadasaadaaaaa".toCharArray();
+		int[] kmpt = kmp.createTable(x);
+		System.out.println(kmp.searchKMP(x,y,kmpt) + "");
 
 
 		// Testing point sorting
