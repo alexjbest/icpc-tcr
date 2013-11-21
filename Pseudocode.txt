@@ -1,0 +1,148 @@
+BFS
+1  procedure BFS(G,v) is
+2      create a queue Q
+3      create a set V
+4      enqueue v onto Q
+5      add v to V
+6      while Q is not empty loop
+7          t ← Q.dequeue()
+8          if t is what we are looking for then
+9              return t
+10         end if
+11         for all edges e in G.adjacentEdges(t) loop
+12             u ← G.adjacentVertex(t,e)
+13             if u is not in V then
+14                  add u to V
+15                  enqueue u onto Q
+16             end if
+17         end loop
+18     end loop
+19     return none
+20 end BFS
+
+=====================================================================================
+
+DFS
+1  procedure DFS(G,v):
+2      label v as discovered
+3      for all edges e in G.adjacentEdges(v) do
+4          if edge e is unexplored then
+5              w ← G.adjacentVertex(v,e)
+6              if vertex w is unexplored then
+7                  label e as a discovered edge
+8                  recursively call DFS(G,w)
+9              else
+10                 label e as a back edge
+11     label v as explored
+
+=====================================================================================
+
+
+Dijkstra
+ 1  function Dijkstra(Graph, source):
+ 2      for each vertex v in Graph:                           // Initializations
+ 3          dist[v]      := infinity;                         // Mark distances from source to v as not yet computed
+ 4          visited[v]   := false;                            // Mark all nodes as unvisited
+ 5          previous[v]  := undefined;                        // Previous node in optimal path from source
+ 6      end for
+ 7      
+ 8      dist[source]  := 0;                                   // Distance from source to itself is zero
+ 9      insert source into Q;                                 // Start off with the source node
+10                                                                
+11      while Q is not empty:                                 // The main loop
+12          u := vertex in Q with smallest distance in dist[] and has not been visited;  // Source node in first case
+13          remove u from Q;
+14          visited[u] := true                                // mark this node as visited
+15          
+16          for each neighbor v of u:   
+17              alt := dist[u] + dist_between(u, v);          // accumulate shortest dist from source
+18              if alt < dist[v] && !visited[v]:                                 
+19                  dist[v]  := alt;                          // keep the shortest dist from src to v
+20                  previous[v]  := u;
+21                  insert v into Q;                          // Add unvisited v into the Q to be processed
+22              end if
+23          end for
+24      end while
+25      return dist;
+26  endfunction
+
+=====================================================================================
+Bellman-Ford
+procedure BellmanFord(list vertices, list edges, vertex source)
+   // This implementation takes in a graph, represented as lists of vertices and edges,
+   // and fills two arrays (distance and predecessor) with shortest-path information
+
+   // Step 1: initialize graph
+   for each vertex v in vertices:
+       if v is source then distance[v] := 0
+       else distance[v] := infinity
+       predecessor[v] := null
+
+   // Step 2: relax edges repeatedly
+   for i from 1 to size(vertices)-1:
+       for each edge (u, v) with weight w in edges:
+           if distance[u] + w < distance[v]:
+               distance[v] := distance[u] + w
+               predecessor[v] := u
+
+   // Step 3: check for negative-weight cycles
+   for each edge (u, v) with weight w in edges:
+       if distance[u] + w < distance[v]:
+           error "Graph contains a negative-weight cycle"
+
+=====================================================================================
+
+Ford–Fulkerson
+Inputs Graph G with flow capacity c, a source node s, and a sink node t
+Output A flow f from s to t which is a maximum
+f(u,v) <- 0 for all edges (u,v)
+While there is a path p from s to t in G_f, such that c_f(u,v) > 0 for all edges (u,v) in p:
+Find c_f(p) = \min\{c_f(u,v) : (u,v) \in p\}
+For each edge (u,v) \in p
+f(u,v) <- f(u,v) + c_f(p) (Send flow along the path)
+f(v,u) <- f(v,u) - c_f(p) (The flow might be "returned" later)
+
+=====================================================================================
+
+Toplogical Sort
+
+L ← Empty list that will contain the sorted elements
+S ← Set of all nodes with no incoming edges
+while S is non-empty do
+    remove a node n from S
+    insert n into L
+    for each node m with an edge e from n to m do
+        remove edge e from the graph
+        if m has no other incoming edges then
+            insert m into S
+if graph has edges then
+    return error (graph has at least one cycle)
+else 
+    return L (a topologically sorted order)
+
+=====================================================================================
+
+Longest Common Substring
+function LCSubstr(S[1..m], T[1..n])
+    L := array(1..m, 1..n)
+    z := 0
+    ret := {}
+    for i := 1..m
+        for j := 1..n
+            if S[i] == T[j]
+                if i == 1 or j == 1
+                    L[i,j] := 1
+                else
+                    L[i,j] := L[i-1,j-1] + 1
+                if L[i,j] > z
+                    z := L[i,j]
+                    ret := {S[i-z+1..i]}
+                elif L[i,j] == z
+                    ret := ret ∪ {S[i-z+1..i]}
+            else L[i,j]=0;
+    return ret
+
+=====================================================================================
+
+Point-in-Polygon Test
+One simple way of finding whether the point is inside or outside a simple polygon is to test how many times a ray, starting from the point and going ANY fixed direction, intersects the edges of the polygon. If the point in question is not on the boundary of the polygon, the number of intersections is an even number if the point is outside, and it is odd if inside. 
