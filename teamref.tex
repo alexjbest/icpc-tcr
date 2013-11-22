@@ -85,8 +85,7 @@ breakatwhitespace=false,    % sets if automatic breaks should only happen at whi
 \lstinputlisting{samplecode.java}
 
 \subsection*{Graphs}
-One way of representing
-\codelisting{graphsample.java}
+\codelisting{Graph.java}
 
 Max-Flow
 \codelisting{fordfulkerson.java}
@@ -153,5 +152,228 @@ Convex hull, can be used for: furthest points, polygon containment ($P$ inside $
 Closest pair of points
 \codelisting{closestpoints.java}
 
+\section*{Pseudocode}
+\subsection*{BFS}
+\begin{lstlisting}[language=Pascal]
+procedure BFS(G,v) is
+  create a queue Q
+  create a set V
+  enqueue v onto Q
+  add v to V
+  while Q is not empty loop
+    t <- Q.dequeue()
+    if t is what we are looking for then
+      return t
+    end if
+    for all edges e in G.adjacentEdges(t) loop
+      u <- G.adjacentVertex(t,e)
+      if u is not in V then
+        add u to V
+        enqueue u onto Q
+      end if
+    end loop
+  end loop
+  return none
+end BFS
+\end{lstlisting}
 
+\subsection*{DFS}
+\begin{lstlisting}[language=Pascal]
+procedure DFS(G,v):
+  label v as discovered
+  for all edges e in G.adjacentEdges(v) do
+    if edge e is unexplored then
+      w <- G.adjacentVertex(v,e)
+      if vertex w is unexplored then
+        label e as a discovered edge
+        recursively call DFS(G,w)
+      else
+        label e as a back edge
+    label v as explored
+\end{lstlisting}
+
+\subsection*{Dijkstra}
+\begin{lstlisting}[language=Pascal]
+  function Dijkstra(Graph, source):
+      for each vertex v in Graph:                           // Initializations
+          dist[v]      := infinity;                         // Mark distances from source to v as not yet computed
+          visited[v]   := false;                            // Mark all nodes as unvisited
+          previous[v]  := undefined;                        // Previous node in optimal path from source
+      end for
+      
+      dist[source]  := 0;                                   // Distance from source to itself is zero
+      insert source into Q;                                 // Start off with the source node
+                                                                
+      while Q is not empty:                                 // The main loop
+          u := vertex in Q with smallest distance in dist[] and has not been visited;  // Source node in first case
+          remove u from Q;
+          visited[u] := true                                // mark this node as visited
+          
+          for each neighbor v of u:   
+              alt := dist[u] + dist_between(u, v);          // accumulate shortest dist from source
+              if alt < dist[v] && !visited[v]:                                 
+                  dist[v]  := alt;                          // keep the shortest dist from src to v
+                  previous[v]  := u;
+                  insert v into Q;                          // Add unvisited v into the Q to be processed
+              end if
+          end for
+      end while
+      return dist;
+  endfunction
+\end{lstlisting}
+
+\subsection*{Bellman-Ford}
+\begin{lstlisting}[language=Pascal]
+procedure BellmanFord(list vertices, list edges, vertex source)
+   // This implementation takes in a graph, represented as lists of vertices and edges,
+   // and fills two arrays (distance and predecessor) with shortest-path information
+
+   // Step 1: initialize graph
+   for each vertex v in vertices:
+       if v is source then distance[v] := 0
+       else distance[v] := infinity
+       predecessor[v] := null
+
+   // Step 2: relax edges repeatedly
+   for i from 1 to size(vertices)-1:
+       for each edge (u, v) with weight w in edges:
+           if distance[u] + w < distance[v]:
+               distance[v] := distance[u] + w
+               predecessor[v] := u
+
+   // Step 3: check for negative-weight cycles
+   for each edge (u, v) with weight w in edges:
+       if distance[u] + w < distance[v]:
+           error "Graph contains a negative-weight cycle"
+\end{lstlisting}
+
+
+\subsection*{Ford-Fulkerson}
+Inputs: Graph $G$ with flow capacity $c$, a source node $s$, and a sink node $t$
+Output: A flow $f$ from $s$ to $t$ which is a maximum
+$f(u,v) <- 0$ for all edges $(u,v)$
+While there is a path $p$ from $s$ to $t$ in $G_f$, such that $c_f(u,v) > 0$ for all edges $(u,v)$ in $p$:
+Find $c_f(p) = \min\{c_f(u,v) : (u,v) \in p\}$
+For each edge $(u,v) \in p$
+$f(u,v) <- f(u,v) + c_f(p)$ (Send flow along the path)
+$f(v,u) <- f(v,u) - c_f(p)$ (The flow might be "returned" later)
+
+
+\subsection*{Toplogical Sort}
+L <- Empty list that will contain the sorted elements
+S <- Set of all nodes with no incoming edges
+while S is non-empty do
+    remove a node n from S
+    insert n into L
+    for each node m with an edge e from n to m do
+        remove edge e from the graph
+        if m has no other incoming edges then
+            insert m into S
+if graph has edges then
+    return error (graph has at least one cycle)
+else 
+    return L (a topologically sorted order)
+
+
+\subsection*{Longest Common Substring}
+\begin{lstlisting}[language=Pascal]
+function LCSubstr(S[1..m], T[1..n])
+    L := array(1..m, 1..n)
+    z := 0
+    ret := {}
+    for i := 1..m
+        for j := 1..n
+            if S[i] == T[j]
+                if i == 1 or j == 1
+                    L[i,j] := 1
+                else
+                    L[i,j] := L[i-1,j-1] + 1
+                if L[i,j] > z
+                    z := L[i,j]
+                    ret := {S[i-z+1..i]}
+                elif L[i,j] == z
+                    ret := ret union {S[i-z+1..i]}
+            else L[i,j]=0;
+    return ret
+\end{lstlisting}
+
+
+\subsection*{Point-in-Polygon Test}
+One simple way of finding whether the point is inside or outside a simple polygon is to test how many times a ray, starting from the point and going ANY fixed direction, intersects the edges of the polygon. If the point in question is not on the boundary of the polygon, the number of intersections is an even number if the point is outside, and it is odd if inside. 
+
+
+\subsection*{Polygon Stuff}
+A convex polygon is trivial to triangulate in linear time, by adding diagonals from one vertex to all other vertices.
+The total number of ways to triangulate a convex $n$-gon by non-intersecting diagonals is the $(n - 2)$-th Catalan number
+
+\subsection*{Delaunay Triangulation}
+The most straightforward way of efficiently computing the Delaunay triangulation is to repeatedly add one vertex at a time, retriangulating the affected parts of the graph. When a vertex $v$ is added, we split in three the triangle that contains $v$, then we apply the flip algorithm. Done naively, this will take $O(n)$ time: we search through all the triangles to find the one that contains $v$, then we potentially flip away every triangle. Then the overall runtime is $O(n^2)$.
+
+\subsection*{Edit Distance}
+len\_s and len\_t are the number of characters in string s and t respectively
+
+\begin{lstlisting}[language=C++]
+int LevenshteinDistance(string s, int len_s, string t, int len_t)
+{
+  /* test for degenerate cases of empty strings */
+  if (len_s == 0) return len_t;
+  if (len_t == 0) return len_s;
+ 
+  /* test if last characters of the strings match */
+  if (s[len_s-1] == t[len_t-1]) cost = 0;
+  else                          cost = 1;
+ 
+  /* return minimum of delete char from s, delete char from t, and delete char from both */
+  return minimum(LevenshteinDistance(s, len_s - 1, t, len_t    ) + 1,
+                 LevenshteinDistance(s, len_s    , t, len_t - 1) + 1,
+                 LevenshteinDistance(s, len_s - 1, t, len_t - 1) + cost);
+}
+\end{lstlisting}
+
+%DFA Theorems
+%For each regular language that can be accepted by a DFA, there exists a minimal automaton, a DFA with a minimum number of states and this DFA is unique (except that states can be given different names.)[2] The minimal DFA ensures minimal computational cost for tasks such as pattern matching.
+%There are two classes of states that can be removed/merged from the original DFA without affecting the language it accepts to minimize it.
+%Unreachable states are those states that are not reachable from the initial state of the DFA, for any input string.
+%Nondistinguishable states are those that cannot be distinguished from one another for any input string.
+%DFA minimization is usually done in three steps, corresponding to the removal/merger of the relevant states. Since the elimination of nondistinguishable states is computationally the most expensive one, it is usually done as the last step.
+%Unreachable states[edit]
+%
+%The state p of DFA M=(Q, Σ, δ, q0, F) is unreachable if no such string w in ∑* exists for which p=δ(q0, w). Reachable states can be obtained with the following algorithm:
+%let reachable_states:= {q0};
+%let new_states:= {q0};
+%do {
+%    temp := the empty set;
+%    for each q in new_states do
+%        for all c in ∑ do
+%            temp := temp ∪ {p such that p=δ(q,c)};
+%        end;
+%    end;
+%    new_states := temp \ reachable_states;
+%    reachable_states := temp; (* reachable_states := reachable_states ∪ new_states; *)
+%} while(new_states =/= the empty set);
+%unreachable_states := Q \ reachable_states;
+%Unreachable states can be removed from the DFA without affecting the language that it accepts.
+%Nondistinguishable states
+%
+%Hopcroft's algorithm
+%One algorithm for merging the nondistinguishable states of a DFA, due to Hopcroft (1971), is based on partition refinement, partitioning the DFA states into groups by their behavior. These groups represent equivalence classes of the Myhill–Nerode equivalence relation, whereby every two states of the same partition are equivalent if they have the same behavior for all the input sequences. That is, for every two states p1 and p2 that belong to the same equivalence class within the partition P, it will be the case that for every input word w, if one follows the transitions determined by w from the two states p1 and p2 one will either be led to accepting states in both cases or be led to rejecting states in both cases; it should not be possible for w to take p1 to an accepting state and p2 to a rejecting state or vice versa.
+%The following pseudocode describes the algorithm:
+%P := {F, Q \ F};
+%W := {F};
+%while (W is not empty) do
+%     choose and remove a set A from W
+%     for each c in ∑ do
+%          let X be the set of states for which a transition on c leads to a state in A
+%          for each set Y in P for which X ∩ Y is nonempty and Y \ X is nonempty do
+%               replace Y in P by the two sets X ∩ Y and Y \ X
+%               if Y is in W
+%                    replace Y in W by the same two sets
+%               else
+%                    if |X ∩ Y| <= |Y \ X|
+%                         add X ∩ Y to W
+%                    else
+%                         add Y \ X to W
+%          end;
+%     end;
+%end;
 \end{document}

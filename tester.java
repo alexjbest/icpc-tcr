@@ -66,5 +66,13 @@ public class tester
 			System.out.print(i+", ");
 		}
 		System.out.println(count);
+
+		// Testing graphs
+		Graph g = new Graph(); // K3 + K2 + K1
+		g.add("1", "2");
+		g.add("1", "3");
+		g.add("2", "3");
+		g.add("4", "5");
+		g.add("7", "7");
 	}
 }
