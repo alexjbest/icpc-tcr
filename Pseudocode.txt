@@ -177,3 +177,51 @@ int LevenshteinDistance(string s, int len_s, string t, int len_t)
                  LevenshteinDistance(s, len_s    , t, len_t - 1) + 1,
                  LevenshteinDistance(s, len_s - 1, t, len_t - 1) + cost);
 }
+
+=====================================================================================
+DFA Theorems
+For each regular language that can be accepted by a DFA, there exists a minimal automaton, a DFA with a minimum number of states and this DFA is unique (except that states can be given different names.)[2] The minimal DFA ensures minimal computational cost for tasks such as pattern matching.
+There are two classes of states that can be removed/merged from the original DFA without affecting the language it accepts to minimize it.
+Unreachable states are those states that are not reachable from the initial state of the DFA, for any input string.
+Nondistinguishable states are those that cannot be distinguished from one another for any input string.
+DFA minimization is usually done in three steps, corresponding to the removal/merger of the relevant states. Since the elimination of nondistinguishable states is computationally the most expensive one, it is usually done as the last step.
+Unreachable states[edit]
+
+The state p of DFA M=(Q, Σ, δ, q0, F) is unreachable if no such string w in ∑* exists for which p=δ(q0, w). Reachable states can be obtained with the following algorithm:
+let reachable_states:= {q0};
+let new_states:= {q0};
+do {
+    temp := the empty set;
+    for each q in new_states do
+        for all c in ∑ do
+            temp := temp ∪ {p such that p=δ(q,c)};
+        end;
+    end;
+    new_states := temp \ reachable_states;
+    reachable_states := temp; (* reachable_states := reachable_states ∪ new_states; *)
+} while(new_states ≠ the empty set);
+unreachable_states := Q \ reachable_states;
+Unreachable states can be removed from the DFA without affecting the language that it accepts.
+Nondistinguishable states[edit]
+
+Hopcroft's algorithm[edit]
+One algorithm for merging the nondistinguishable states of a DFA, due to Hopcroft (1971), is based on partition refinement, partitioning the DFA states into groups by their behavior. These groups represent equivalence classes of the Myhill–Nerode equivalence relation, whereby every two states of the same partition are equivalent if they have the same behavior for all the input sequences. That is, for every two states p1 and p2 that belong to the same equivalence class within the partition P, it will be the case that for every input word w, if one follows the transitions determined by w from the two states p1 and p2 one will either be led to accepting states in both cases or be led to rejecting states in both cases; it should not be possible for w to take p1 to an accepting state and p2 to a rejecting state or vice versa.
+The following pseudocode describes the algorithm:
+P := {F, Q \ F};
+W := {F};
+while (W is not empty) do
+     choose and remove a set A from W
+     for each c in ∑ do
+          let X be the set of states for which a transition on c leads to a state in A
+          for each set Y in P for which X ∩ Y is nonempty and Y \ X is nonempty do
+               replace Y in P by the two sets X ∩ Y and Y \ X
+               if Y is in W
+                    replace Y in W by the same two sets
+               else
+                    if |X ∩ Y| <= |Y \ X|
+                         add X ∩ Y to W
+                    else
+                         add Y \ X to W
+          end;
+     end;
+end;
