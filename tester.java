@@ -74,5 +74,19 @@ public class tester
 		g.add("2", "3");
 		g.add("4", "5");
 		g.add("7", "7");
+
+		// Testing knapsack
+		ArrayList<Integer> values = new ArrayList<Integer>();
+		values.add(1);
+		values.add(3);
+		values.add(5);
+		values.add(6);
+		ArrayList<Integer> weights =  new ArrayList<Integer>();
+		weights.add(5);
+		weights.add(5);
+		weights.add(5);
+		weights.add(5);
+		int W = 10;
+		System.out.println(knapsack.zerooneknapsack(values, weights, 10));
 	}
 }

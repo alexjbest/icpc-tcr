@@ -34,6 +34,13 @@ public class samplecode {
 		MyClass target = new MyClass(3);
 		Collections.binarySearch(list, target, new MyClassCmp());
 		SortedSet<MyClass> set = new TreeSet<MyClass>(new MyClassCmp());
+		// We can also find maximums
+		List<Integer> arr2= new ArrayList<Integer>();
+		arr2.add(2);
+		arr2.add(5);
+		arr2.add(1);
+		arr2.add(3);
+		int b = Collections.max(arr2);
 
 		// We can work with arbitrary precision integers as follows:
 		BigInteger numb = new BigInteger("1223423784329545891238471293812391254651");

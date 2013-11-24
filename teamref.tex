@@ -96,21 +96,8 @@ Shortest path
 Min spanning tree
 \codelisting{kruskal.java}
 
-Edmonds blossom algorithm for perfect matching (min-weight?)
-\codelisting{blossom.java}
-
-DFS/BFS
-\codelisting{search.java}
-
-Colouring
-
-Connectivity
-
-Minor testing
-
-Eulerian path
-
-Ham path
+Gale-Shapley
+\codelisting{galeshape.java}
 
 \subsection*{Number theory}
 GCD
@@ -124,17 +111,9 @@ Sieve of Eratosthenes
 Discrete knapsack problem
 \codelisting{knapsack.java}
 
-\subsection*{Combinatorics}
-Derangements, permutations, other bits
-
-\subsection*{Logic}
-2-SAT (requires strongly connected components??)
-\codelisting{2sat.java}
-
 \subsection*{Strings}
 Matching
 \codelisting{kmp.java}
-
 
 Suffix arrays!
 \codelisting{suffix.java}
@@ -249,8 +228,8 @@ procedure BellmanFord(list vertices, list edges, vertex source)
 
 
 \subsection*{Ford-Fulkerson}
-Inputs: Graph $G$ with flow capacity $c$, a source node $s$, and a sink node $t$
-Output: A flow $f$ from $s$ to $t$ which is a maximum
+Inputs: Graph $G$ with flow capacity $c$, a source node $s$, and a sink node $t$ \\
+Output: A flow $f$ from $s$ to $t$ which is a maximum \\
 $f(u,v) <- 0$ for all edges $(u,v)$
 While there is a path $p$ from $s$ to $t$ in $G_f$, such that $c_f(u,v) > 0$ for all edges $(u,v)$ in $p$:
 Find $c_f(p) = \min\{c_f(u,v) : (u,v) \in p\}$
@@ -376,4 +355,7 @@ int LevenshteinDistance(string s, int len_s, string t, int len_t)
 %          end;
 %     end;
 %end;
+
+\section*{Formulae}
+\input{cheat/sums.tex}
 \end{document}
