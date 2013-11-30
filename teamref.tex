@@ -29,38 +29,6 @@ breaklines=true,        % sets automatic line breaking
 breakatwhitespace=false,    % sets if automatic breaks should only happen at whitespace
 }
 
-%\usepackage{ifthen}
-%
-%\newcounter{FileLines}
-%\newboolean{RestFile}
-%\newcommand{\FileLine}{}
-%\newread\File
-%
-%\newcommand{\CountLinesInFile}[2]
-%{
-%  \setboolean{RestFile}{true}
-%  \setcounter{FileLines}{0}
-%
-%  \openin\File=#1
-%  \whiledo{\boolean{RestFile}}
-%  {
-%    \ReadNextLine{\File}
-%    \ifthenelse{\boolean{RestFile}}{
-%      \stepcounter{FileLines}
-%    }{}
-%  }
-%  \closein\File
-%}
-%
-%\newcommand{\ReadNextLine}[1]{
-%  \ifthenelse{\boolean{RestFile}}{
-%    \read#1 to \FileLine
-%    \ifeof#1\setboolean{RestFile}{false}
-%    \else % if last line already is read, EOF appears here
-%    \fi
-%  }{}
-%}
-
 \newcommand{\codelisting}[1]{
   \lstinputlisting[emptylines=0]{#1}}
 
@@ -140,12 +108,12 @@ procedure BFS(G,v) is
   enqueue v onto Q
   add v to V
   while Q is not empty loop
-    t <- Q.dequeue()
+    t \leftarrow Q.dequeue()
     if t is what we are looking for then
       return t
     end if
     for all edges e in G.adjacentEdges(t) loop
-      u <- G.adjacentVertex(t,e)
+      u \leftarrow G.adjacentVertex(t,e)
       if u is not in V then
         add u to V
         enqueue u onto Q
@@ -162,7 +130,7 @@ procedure DFS(G,v):
   label v as discovered
   for all edges e in G.adjacentEdges(v) do
     if edge e is unexplored then
-      w <- G.adjacentVertex(v,e)
+      w \leftarrow G.adjacentVertex(v,e)
       if vertex w is unexplored then
         label e as a discovered edge
         recursively call DFS(G,w)
@@ -230,28 +198,28 @@ procedure BellmanFord(list vertices, list edges, vertex source)
 \subsection*{Ford-Fulkerson}
 Inputs: Graph $G$ with flow capacity $c$, a source node $s$, and a sink node $t$ \\
 Output: A flow $f$ from $s$ to $t$ which is a maximum \\
-$f(u,v) <- 0$ for all edges $(u,v)$
-While there is a path $p$ from $s$ to $t$ in $G_f$, such that $c_f(u,v) > 0$ for all edges $(u,v)$ in $p$:
-Find $c_f(p) = \min\{c_f(u,v) : (u,v) \in p\}$
-For each edge $(u,v) \in p$
-$f(u,v) <- f(u,v) + c_f(p)$ (Send flow along the path)
-$f(v,u) <- f(v,u) - c_f(p)$ (The flow might be "returned" later)
+$f(u,v) \leftarrow 0$ for all edges $(u,v)$\\
+While there is a path $p$ from $s$ to $t$ in $G_f$, such that $c_f(u,v) > 0$ for all edges $(u,v)$ in $p$:\\
+\indent Find $c_f(p) = \min\{c_f(u,v) : (u,v) \in p\}$\\
+\indent For each edge $(u,v) \in p$\\
+\indent\indent  $f(u,v) \leftarrow f(u,v) + c_f(p)$ (Send flow along the path)\\
+\indent\indent  $f(v,u) \leftarrow f(v,u) - c_f(p)$ (The flow might be "returned" later)
 
 
 \subsection*{Toplogical Sort}
-L <- Empty list that will contain the sorted elements
-S <- Set of all nodes with no incoming edges
-while S is non-empty do
-    remove a node n from S
-    insert n into L
-    for each node m with an edge e from n to m do
-        remove edge e from the graph
-        if m has no other incoming edges then
-            insert m into S
-if graph has edges then
-    return error (graph has at least one cycle)
-else 
-    return L (a topologically sorted order)
+L $\leftarrow$ Empty list that will contain the sorted elements\\
+S $\leftarrow$ Set of all nodes with no incoming edges\\\
+while S is non-empty do\\
+\indent remove a node n from S\\
+\indent insert n into L\\
+\indent for each node m with an edge e from n to m do\\
+\indent\indent remove edge e from the graph\\
+\indent\indent if m has no other incoming edges then\\
+\indent\indent insert m into S\\
+if graph has edges then\\
+\indent return error (graph has at least one cycle)\\
+else \\
+\indent return L (a topologically sorted order)\\
 
 
 \subsection*{Longest Common Substring}
